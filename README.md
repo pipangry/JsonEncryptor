@@ -1,5 +1,6 @@
 # Json-UI Obfuscator & Encryptor
 Poweful Json-UI obfuscator. Supports key encryption, content clogging and multi file processing.
+[Obfuscate your code now!](https://pipangry.github.io/JsonEncryptor/ "Obfuscator website")
 # A short tutorial
 First, read the documentation on using the obfuscator. I advise you to use obfuscation of everything at once .zip archive, which allows you to use additional obfuscation functions and facilitate the obfuscation of your pack. Look at your code for third-party annotations or variables, and add them to the exceptions. To check the correct syntax encryption, you can disable content clogging.
 
