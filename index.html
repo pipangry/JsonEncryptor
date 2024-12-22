@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Json-UI obfuscator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="settingsModal" class="modal" style="animation: fadeIn 0.3s forwards;">
+        <div class="modal-content">
+            <div>
+                <span class="close-button" id="closeModal"><svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20"><path d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z"></path></svg></span>
+                <h2 style="margin-top: 0;">Settings</h2>
+            </div>
+            <form id="settingsForm">
+
+                <label class="custom-checkbox">
+                    <input id="settingClogJson" type="checkbox" checked />
+                    <span class="checkmark">
+                        <svg viewBox="0 0 24 24" class="checkmark-svg" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M19 7.34189C18.6095 6.95136 17.9763 6.95136 17.5858 7.34189L10.3407 14.587C9.95016 14.9775 9.31699 14.9775 8.92647 14.587L6.38507 12.0456C5.99454 11.6551 5.36138 11.6551 4.97085 12.0456C4.58033 12.4361 4.58033 13.0693 4.97085 13.4598L7.51774 16C8.68969 17.1689 10.5869 17.1677 11.7574 15.9974L19 8.7561C19.3905 8.36558 19.3905 7.73241 19 7.34189Z" fill="white"></path> </g></svg>
+                    </span>
+                    File content clogging
+                </label>
+
+                <label class="custom-checkbox">
+                    <input id="settingLightEncryption" type="checkbox" />
+                    <span class="checkmark">
+                        <svg viewBox="0 0 24 24" class="checkmark-svg" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M19 7.34189C18.6095 6.95136 17.9763 6.95136 17.5858 7.34189L10.3407 14.587C9.95016 14.9775 9.31699 14.9775 8.92647 14.587L6.38507 12.0456C5.99454 11.6551 5.36138 11.6551 4.97085 12.0456C4.58033 12.4361 4.58033 13.0693 4.97085 13.4598L7.51774 16C8.68969 17.1689 10.5869 17.1677 11.7574 15.9974L19 8.7561C19.3905 8.36558 19.3905 7.73241 19 7.34189Z" fill="white"></path> </g></svg>
+                    </span>
+                    Light encryption mode
+                </label>
+                
+                <label class="custom-checkbox">
+                    <input id="settingDebugMode" type="checkbox" />
+                    <span class="checkmark">
+                        <svg viewBox="0 0 24 24" class="checkmark-svg" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M19 7.34189C18.6095 6.95136 17.9763 6.95136 17.5858 7.34189L10.3407 14.587C9.95016 14.9775 9.31699 14.9775 8.92647 14.587L6.38507 12.0456C5.99454 11.6551 5.36138 11.6551 4.97085 12.0456C4.58033 12.4361 4.58033 13.0693 4.97085 13.4598L7.51774 16C8.68969 17.1689 10.5869 17.1677 11.7574 15.9974L19 8.7561C19.3905 8.36558 19.3905 7.73241 19 7.34189Z" fill="white"></path> </g></svg>
+                    </span>
+                    Enable debug mode (Console logs)
+                </label>
+
+                <h4>Settings for .zip processing only:</h4>
+
+                <label for="settingFileFormat">Obfuscated file names format</label>
+                <input type="text" id="settingFileFormat" placeholder="Enter file formal" name="settingFileFormat" value="zip">
+
+                <label class="custom-checkbox">
+                    <input id="settingSeparateKeys" type="checkbox" checked />
+                    <span class="checkmark">
+                        <svg viewBox="0 0 24 24" class="checkmark-svg" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M19 7.34189C18.6095 6.95136 17.9763 6.95136 17.5858 7.34189L10.3407 14.587C9.95016 14.9775 9.31699 14.9775 8.92647 14.587L6.38507 12.0456C5.99454 11.6551 5.36138 11.6551 4.97085 12.0456C4.58033 12.4361 4.58033 13.0693 4.97085 13.4598L7.51774 16C8.68969 17.1689 10.5869 17.1677 11.7574 15.9974L19 8.7561C19.3905 8.36558 19.3905 7.73241 19 7.34189Z" fill="white"></path> </g></svg>
+                    </span>
+                    Separate Json keys
+                </label>
+                <label class="custom-checkbox">
+                    <input id="settingHashNames" type="checkbox" checked />
+                    <span class="checkmark">
+                        <svg viewBox="0 0 24 24" class="checkmark-svg" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M19 7.34189C18.6095 6.95136 17.9763 6.95136 17.5858 7.34189L10.3407 14.587C9.95016 14.9775 9.31699 14.9775 8.92647 14.587L6.38507 12.0456C5.99454 11.6551 5.36138 11.6551 4.97085 12.0456C4.58033 12.4361 4.58033 13.0693 4.97085 13.4598L7.51774 16C8.68969 17.1689 10.5869 17.1677 11.7574 15.9974L19 8.7561C19.3905 8.36558 19.3905 7.73241 19 7.34189Z" fill="white"></path> </g></svg>
+                    </span>
+                    File name obfuscation
+                </label>
+
+                <button type="submit" style="width: 100%;"><span>Save</span></button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div id="error-container"></div>
+        <h1 style="margin-top: 0;">Json-UI Obfuscator</h1>
+        <p>Poweful Json-UI obfuscator. Supports key encryption, content clogging and multi file processing.</p>
+        <div class="import-container">
+            <div class="right-section" id="rightSection">
+                <svg class="import-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                <p class="import-text">Drag file here or select it by pressing button.</p>
+                <input type="file" id="fileInput" class="file-input" accept=".json,.jsonc,.zip" />
+                <label for="fileInput" class="import-button">Select file</label>
+            </div>
+            <div class="left-section" id="leftSection">
+                <div style="color: #777; margin-top: auto;" id="noFileText"><p style="margin: 0; ">File not selected</p>Supported formats: .zip, .json, .jsonc</div>
+                <div class="loading-section" id="loadingSection" style="display: none;">
+                    <div class="loader" id="loaderBar"></div>
+                    <p id="fileName" style="margin-bottom: 2px;"></p>
+                    <div id="fileState"></div>
+                </div>
+                <p style="margin-top: auto; margin-bottom: 0; color: #777;">Large files can cause lag or error</p>
+            </div>
+        </div>
+        <div style="margin-top: 10px;">
+            <span>Enter salt key (String)</span>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <input id="shiftInput" value="b3JldWkgbmVhcg==" placeholder="Enter salt key" style="width: 100%;"/></input>
+            <button id="openSettings">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20" fill="none" class="svg-icon"><g stroke-width="1.3" stroke-linecap="round" stroke="#000000"><circle r="2.5" cy="10" cx="10"></circle><path fill-rule="evenodd" d="m8.39079 2.80235c.53842-1.51424 2.67991-1.51424 3.21831-.00001.3392.95358 1.4284 1.40477 2.3425.97027 1.4514-.68995 2.9657.82427 2.2758 2.27575-.4345.91407.0166 2.00334.9702 2.34248 1.5143.53842 1.5143 2.67996 0 3.21836-.9536.3391-1.4047 1.4284-.9702 2.3425.6899 1.4514-.8244 2.9656-2.2758 2.2757-.9141-.4345-2.0033.0167-2.3425.9703-.5384 1.5142-2.67989 1.5142-3.21831 0-.33914-.9536-1.4284-1.4048-2.34247-.9703-1.45148.6899-2.96571-.8243-2.27575-2.2757.43449-.9141-.01669-2.0034-.97028-2.3425-1.51422-.5384-1.51422-2.67994.00001-3.21836.95358-.33914 1.40476-1.42841.97027-2.34248-.68996-1.45148.82427-2.9657 2.27575-2.27575.91407.4345 2.00333-.01669 2.34247-.97026z" clip-rule="evenodd"></path></g></svg>
+                Settings
+            </button>
+        </div>
+
+        <div>
+            <button id="dropExceptionsList" style="width: 100%;">
+                <span id="exceptions-count"></span>
+                <svg class="icon" width="20" viewBox="0 0 24 24" height="20" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" fill="#0F0F0F"></path> </g></svg>
+            </button>
+            <div class="panel" id="panel">
+                <div style="display: flex; gap: 10px;" id="exception-panel">
+                    <input type="text" style="width: 100%;" id="exceptionName" placeholder="Enter the name of the new exception">
+                    <select id="typeDropdown"></select>
+                    <button id="addExceptionButton">Add</button>
+                </div>
+                <div class="separator"></div>
+                <div id="exceptionsList"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <a href="https://pipangry.github.io/docs-starlib/" target="_blank">View documentation on GitHub</a>
+        <p style="margin: 5px;">Need help? Suggest a new issue on GitHub.</p>
+        <p style="margin: 5px;">by pipa_ngry</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js" defer></script>
+    <script type="module" src="index.js" defer></script>
+</body>
+</html>

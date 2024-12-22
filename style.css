@@ -1,0 +1,485 @@
+body {
+    margin: 0;
+    background-color: var(--gray); 
+    font-family: Arial, sans-serif;
+    color: #222; 
+
+    --border-radius: 16px;
+
+    --gray: rgb(246, 250, 253);
+    --light: rgb(236, 243, 252);
+    --light-blue: rgb(194, 231, 255);
+    --blue: #007BFF;
+    --light-red: #EF665B;
+
+    --blue-hover: #006fe6;
+}
+
+@media (max-width: 700px) {
+    .container {
+        min-width: 80%;
+        margin: 15px auto; 
+        padding: 15px; 
+    }
+    .modal-content {
+        min-width: 75%;
+    }
+}
+
+a {
+    color: var(--blue);
+    text-decoration: none;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 10px;
+    background-color: var(--gray);
+    border-radius: var(--border-radius);
+    padding: 10px 20px;
+}
+
+.container {
+    width: 50%; 
+    margin: 20px auto; 
+    padding: 20px; 
+    background-color: #ffffff; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    border-radius: var(--border-radius);
+}
+
+.import-container {
+    display: flex;
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    background-color: var(--gray);
+}
+
+.left-section, .right-section {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    border-radius: var(--border-radius);
+    margin: 0;
+    transition: background-color 0.3s;
+    justify-content: center; 
+    align-items: center; 
+}
+
+.left-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.right-section {
+    border: 2px dashed var(--blue);
+    margin-right: 20px;
+}
+
+.right-section.dragover {
+    background-color: var(--light-blue);
+}
+
+.import-svg {
+    width: 100px;
+    height: 100px;
+    color: var(--blue);
+}
+
+.import-text {
+    margin: 10px 0;
+}
+
+.file-input {
+    display: none;
+}
+
+.import-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--blue);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.import-button:hover {
+    background-color: var(--blue-hover);
+}
+
+.loading-section {
+    text-align: center;
+    animation: fadeIn 1s forwards;
+    margin-top: auto;
+}
+
+.loader {
+    display: block;
+    width: 100%;
+    height: 5px;
+    border-radius: var(--border-radius);
+    background-color: var(--light-blue);
+    position: relative;
+}
+
+.loader::before {
+    content: "";
+    position: absolute;
+    background: var(--blue);
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    border-radius: var(--border-radius);
+    animation: moving 1s ease-in-out infinite;
+}
+
+.animateOut {
+    animation: movingOut 2s forwards;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0; 
+    }
+    100% {
+        opacity: 1; 
+    }
+}
+@keyframes fadeOut {
+    0% {
+        opacity: 1; 
+    }
+    100% {
+        opacity: 0; 
+    }
+}
+@keyframes moving {
+    50% {
+        width: 100%;
+    }
+    100% {
+        width: 0;
+        right: 0;
+        left: unset;
+    }
+}
+@keyframes movingOut {
+    50% {
+        width: 100%; 
+    }
+    100% {
+        width: 0;    
+    }
+}
+
+#error-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.error-message {
+    background-color: var(--light-red);
+    color: white;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: var(--border-radius);
+    opacity: 0;
+    gap: 10px;
+    transform: translateY(-20px);
+    animation: slideIn 0.5s forwards, slideOut 0.5s forwards 3s;
+    display: flex;
+    align-items: center;
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+button {
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 10px 20px; 
+    background-color: var(--light); 
+    color: black; 
+    border: none; 
+    border-radius: var(--border-radius); 
+    cursor: pointer; 
+    margin-top: 10px; 
+    transition: 0.3s; 
+    font-size: medium; 
+    font-weight: 200; 
+    gap: 10px; 
+    line-height: normal; 
+    box-sizing: border-box;
+}
+
+button:hover {
+    background-color: var(--light-blue);
+}
+
+select {
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    padding: 10px 40px 10px 20px; 
+    background-color: var(--light); 
+    color: black; 
+    border: var(--light) 2px solid; 
+    border-radius: var(--border-radius); 
+    cursor: pointer; 
+    margin-top: 10px; 
+    transition: background-color 0.3s, border-color 0.3s; 
+    font-size: medium; 
+    font-weight: 200; 
+    gap: 10px; 
+    line-height: normal; 
+    box-sizing: border-box;
+    appearance: none; 
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" fill="%230F0F0F"></path></svg>'); 
+    background-repeat: no-repeat; 
+    background-position: right 10px center; 
+    background-size: 20px 20px; 
+}
+
+select:hover {
+    background-color: var(--light-blue); 
+    border-color: var(--light-blue); 
+}
+
+select:focus {
+    border-color: var(--blue); 
+    outline: none; 
+}
+
+input {
+    display: flex; 
+    padding: 10px 20px; 
+    background-color: var(--light); 
+    color: black; 
+    border: 2px solid transparent; 
+    border-radius: var(--border-radius); 
+    cursor: text; 
+    margin-top: 10px; 
+    transition: 0.3s; 
+    font-size: medium; 
+    font-weight: 200; 
+    box-sizing: border-box;
+}
+
+input:focus {
+    border-color: var(--blue); 
+    outline: none; 
+}
+
+input:hover {
+    background-color: var(--light-blue); 
+}
+
+.custom-checkbox {
+    display: flex; 
+    align-items: center; 
+    cursor: pointer; 
+    margin-top: 10px; 
+    font-size: medium; 
+    color: black; 
+}
+
+.custom-checkbox input {
+    display: none; 
+}
+
+.checkmark {
+    width: 25px; 
+    height: 25px; 
+    background-color: var(--light); 
+    border-radius: var(--border-radius); 
+    margin-right: 10px; 
+    position: relative; 
+    transition: background-color 0.2s; 
+}
+
+.custom-checkbox:hover .checkmark {
+    background-color: var(--light-blue); 
+}
+
+.custom-checkbox input:checked + .checkmark {
+    background-color: var(--blue); 
+}
+
+.checkmark-svg {
+    width: 20px; 
+    height: 20px; 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    opacity: 0; 
+    transition: opacity 0.2s; 
+}
+
+.custom-checkbox input:checked + .checkmark .checkmark-svg {
+    opacity: 1; 
+}
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.5); 
+
+    align-items: center; 
+    justify-content: center; 
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    width: 40%; 
+    max-width: 600px; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+}
+
+.close-button {
+    float: right;
+    fill: black;
+    transition: 0.2s;
+}
+
+.close-button:hover {
+    fill: var(--blue-hover);
+}
+
+.modal-content input {
+    width: 100%;
+}
+
+.icon {
+    transition: transform 0.3s;
+    rotate: -90deg;
+    margin-left: auto;
+}
+
+#addExceptionButton {
+    background-color: var(--blue);
+    color: white;
+}
+
+#addExceptionButton:hover {
+    background-color: var(--blue-hover);
+}
+
+.panel {
+    display: none; 
+    top: 100%; 
+    left: 0;
+    width: 100%;
+    padding: 10px 20px;
+    margin-top: 10px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    box-sizing: border-box;
+}
+
+.panel.show {
+    display: block; 
+    opacity: 1; 
+    transform: translateY(0); 
+}
+
+.panel.hide {
+    opacity: 0; 
+    transform: translateY(-10px); 
+}
+
+#exceptionsList {
+    text-align: center;
+}
+
+.no-exceptions {
+    margin-top: 10px;
+}
+
+.exception-item {
+    display: flex;
+    background-color: var(--gray);
+    border-radius: var(--border-radius);
+    margin-top: 10px;
+    padding: 10px 20px;
+    align-items: center; 
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.exception-item select {
+    background-color: var(--light);
+    margin-top: 0;
+    border: var(--light) 2px solid;
+}
+
+.exception-item select:hover {
+    background-color: var(--light-blue);
+    border-color: var(--light-blue);
+}
+
+.exception-item select:focus {
+    border-color: var(--blue);
+}
+
+.exception-item .delete-button {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    background-color: var(--light);
+    padding: 10px;
+    border-radius: var(--border-radius);
+    transition: background-color 0.3s ease;
+}
+
+.exception-item .delete-button:hover {
+    background-color: var(--light-blue);
+}
+
+.separator {
+    height: 2px;
+    width: 100%;
+    background-color: var(--light);
+    margin-top: 10px;
+}
