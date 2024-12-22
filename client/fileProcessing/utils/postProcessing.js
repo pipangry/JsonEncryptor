@@ -2,6 +2,7 @@ import { baseCryptoMD5 } from "../../crypto/md5.js";
 
 export default function clogJsonContent(jsonContent) {
     const settingClogJson = document.getElementById('settingClogJson');
+    const settingAuthorshipMessage = document.getElementById('settingAuthorshipMessage');
 
     const cleanedContent = settingClogJson.checked
         ? jsonContent.replace(/"([^"]*)"/g, (match) => {
@@ -19,6 +20,7 @@ export default function clogJsonContent(jsonContent) {
             })
         : cleanedContent;
 
+    const authorshipMessage = settingAuthorshipMessage.value == '' ? '' : settingAuthorshipMessage.value + '\n';
     const endMessage = '\n/*==============================\n//\n//   Obfuscated by pipa_ngry.\n//   Do not delete this message.\n//   Thanks.\n//\n==============================*/';
-    return processedContent + endMessage;
+    return authorshipMessage + processedContent + endMessage;
 }
