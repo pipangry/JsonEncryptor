@@ -1,5 +1,5 @@
 # Json-UI Obfuscator & Encryptor
-Poweful Json-UI obfuscator. Supports key encryption, content clogging and multi file processing.
+Ultimate Json-UI obfuscator. Supports key encryption, content clogging and multi file processing.
 
 [Obfuscate your code now!](https://pipangry.github.io/JsonEncryptor/ "Obfuscator website")
 # A short tutorial
@@ -35,7 +35,7 @@ What syntax encryption do:
 Syntax encryption is the most complex logic in this obfuscator, but it's not perfect. If you use any annotations or special Json-UI expressions, they may be encrypted incorrectly and cause errors, so you always need to add exceptions.
 
 Example:
-```
+```jsonc
     "controls": [
       {
         "server_form_factory": {
@@ -95,7 +95,7 @@ Exception types are a very important aspect, it allows you to create exceptions 
 
 Exceptions of this type will be applied to the entire Json key if it completely matches the exception (the prefix |default will be ignored). Exceptions of this type are also used as variables, if, for example, you use the $key variable in any binding.
 I'll give you a small example with the exception of $key.
-```
+```jsonc
 "$key|default": "test",
 "bindings": [
   {
@@ -110,7 +110,7 @@ Here, the ```$key``` will not be encrypted, either in the Json key or in the bin
 **Index**
 
 Exceptions of this type will only apply to the part before the ```@``` character in Json keys. They are created for elements with a ```common.button``` annotation, where the state of the button is determined depending on the part before the ```@``` symbol. If you don't have an annotation, then you can safely use the Global type. Here is a small example with the exception of hover and default:
-```
+```jsonc
 "controls": [
   {
     "default@annotation": {}
@@ -128,7 +128,7 @@ Here the words hover and pressed will not be encrypted, you can also add the sam
 **Annotation**
 
 Exceptions of this type apply to all annotations. Annotations are the string after the @ character in a Json key, or the entire value of the Json key if it contains a dot that is not part of the binding expression. I'll give you a small example:
-```
+```jsonc
 "$screen_content": "server_form.squareui_main_screen_content",
 //...and
 "square_default_form@cool_code.testtt": {}
@@ -138,7 +138,7 @@ Here, the annotations will be ```server_form.squareui_main_screen_content``` and
 **Namespace**
 
 Exceptions of this type will be applied to all namespace values. The namespace value is the value of the Json key ```namespace```, as well as the word before the dot in the annotation. The namespace value is encrypted by default, but according to the standard, namespace already have exceptions for hardcored Minecraft namespaces. Here is a small example:
-```
+```jsonc
 "namespace": "my_namespace",
 //...or
 "test@my_namespace.test": {}
