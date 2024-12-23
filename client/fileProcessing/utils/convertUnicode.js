@@ -6,9 +6,18 @@ export default function convertToUnicodeEscape(code) {
     strings.forEach(str => {
         const content = str.slice(1, -1);
 
-        const unicodeEscape = Array.from(content).map(char => {
-            return '\\u' + ('0000' + char.charCodeAt(0).toString(16)).slice(-4);
-        }).join('');
+        let unicodeEscape = '';
+        let i = 0;
+
+        while (i < content.length) {
+            if (content[i] === '\\' && i + 1 < content.length) {
+                unicodeEscape += content[i] + content[i + 1];
+                i += 2;
+            } else {
+                unicodeEscape += '\\u' + ('0000' + content.charCodeAt(i).toString(16)).slice(-4);
+                i++;
+            }
+        }
 
         code = code.replace(str, str[0] + unicodeEscape + str[str.length - 1]);
     });
