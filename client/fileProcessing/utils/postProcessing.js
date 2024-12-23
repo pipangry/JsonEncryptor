@@ -21,6 +21,6 @@ export default function clogJsonContent(jsonContent) {
         : cleanedContent;
 
     const authorshipMessage = settingAuthorshipMessage.value == '' ? '' : settingAuthorshipMessage.value + '\n';
-    const endMessage = '\n/*==============================\n//\n//   Obfuscated by pipa_ngry.\n//   Do not delete this message.\n//   Thanks.\n//\n==============================*/';
+    const endMessage = '\n/*Obfuscated on https://pipangry.github.io/JsonEncryptor/\nDo not delete this message.*/';
     return authorshipMessage + processedContent + endMessage;
 }
