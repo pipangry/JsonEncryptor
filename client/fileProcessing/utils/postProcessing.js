@@ -25,6 +25,6 @@ export default function clogJsonContent(jsonContent) {
     const finalContent = settingConvertToUnicode.checked ? convertToUnicodeEscape(processedContent) : processedContent;
 
     const authorshipMessage = settingAuthorshipMessage.value == '' ? '' : settingAuthorshipMessage.value.replace(/\\n/g, '\n') + '\n';
-    const endMessage = '\n/*Obfuscated on https://pipangry.github.io/JsonEncryptor/\nDo not delete this message.*/';
+    const endMessage = '\n\n/*Obfuscated on https://pipangry.github.io/JsonEncryptor/\nDo not delete this message.*/';
     return authorshipMessage + finalContent + endMessage;
 }

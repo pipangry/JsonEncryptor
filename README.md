@@ -66,7 +66,10 @@ File content clogging
 > It enabled file content clogging, which adds random comments to your content and removes spaces, making it difficult to read. You can disable this option to check syntax encryption for errors.
 
 Light encryption mode
-> If you have enabled these values, then syntax encryption logic will use the Caesar cipher rather than MD5 hashing. This allows you to reduce the weight of files, since the MD5 hash is quite long.
+> If you have enabled these value, then syntax encryption logic will use the Caesar cipher rather than MD5 hashing. This allows you to reduce the weight of files, since the MD5 hash is quite long.
+
+Convert to unicode escape
+> If you have enabled these value, your Json will be converted to unicode escape. **The file size will increase dramatically!**
 
 Enable debug mode (Console logs)
 > This enables the output of logs about the obfuscation process to the browser console.
