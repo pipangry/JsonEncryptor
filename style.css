@@ -237,6 +237,8 @@ button {
     cursor: pointer; 
     margin-top: 10px; 
     transition: 0.3s; 
+    font-size: medium; 
+    font-weight: 200; 
     gap: 10px; 
     line-height: normal; 
     box-sizing: border-box;
@@ -290,6 +292,8 @@ input {
     cursor: text; 
     margin-top: 10px; 
     transition: 0.3s; 
+    font-size: medium; 
+    font-weight: 200; 
     box-sizing: border-box;
 }
 
