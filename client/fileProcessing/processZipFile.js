@@ -9,6 +9,7 @@ import log from './utils/log.js';
 
 function deployContents(updatedZip) {
     const settingHashNames = document.getElementById('settingHashNames');
+    const targetFolder = document.getElementById('settingTargetFolder');
 
     const filesToRename = [];
     const directoriesToCheck = new Set();
@@ -24,7 +25,11 @@ function deployContents(updatedZip) {
             const baseName = pathParts.pop();
             const isExcludedFile = baseName == '_global_variables.json' || baseName == '_ui_defs.json';
             const newBaseName = (isExcludedFile || !settingHashNames.checked) ? baseName : baseCryptoMD5(baseName) + `.${fileFormat}`;
-            const newFilename = ['ui', newBaseName].join('/');
+            const newFilename = [
+                'ui',
+                ...(!(isExcludedFile || targetFolder.value == '') ? [targetFolder.value] : []),
+                newBaseName
+            ].join('/');
 
             filesToRename.push({ oldName: filename, newName: newFilename });
             isExcludedFile ? null : uiDefsArray.push(newFilename);
