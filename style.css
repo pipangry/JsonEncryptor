@@ -447,6 +447,8 @@ input:hover {
     margin-top: 10px;
     padding: 10px 20px;
     align-items: center; 
+    flex-wrap: wrap;
+    gap: 10px;
     justify-content: space-between;
     box-sizing: border-box;
 }
