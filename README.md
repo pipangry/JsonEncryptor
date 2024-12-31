@@ -82,6 +82,9 @@ Separate Json keys
 File name obfuscation
 > If you enable this option, your file names will be encrypted with an MD5 hash. The resulting file names are taken into account when automatically creating _ui_defs.json
 
+Target folder name
+> The folder in ui folder where the obfuscated files will be placed.
+
 Obfuscated file names format
 > If you have enabled File name obfuscation, the file format specified in this field will be added to the names of your files. The dot between name and file format is added automatically.
 
