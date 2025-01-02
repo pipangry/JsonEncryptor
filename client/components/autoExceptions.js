@@ -71,7 +71,8 @@ export default function initializeAutoExceptionsArea() {
 function getVariables(obj, result = []) {
     for (const key in obj) {
         if (key.startsWith('$')) {
-            result.push(key);
+            const resultKey = key.split('|')[0];
+            result.push(resultKey);
         }
 
         if (typeof obj[key] === 'object' && obj[key] !== null) {
