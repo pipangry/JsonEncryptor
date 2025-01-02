@@ -40,9 +40,11 @@ a {
 }
 
 .container {
-    width: 50%; 
-    margin: 20px auto; 
+    width: 700px; 
+    max-width: 96%;
     padding: 20px; 
+    margin: 10px auto;
+    box-sizing: border-box;
     background-color: #ffffff; 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
     border-radius: var(--border-radius);
@@ -306,6 +308,33 @@ input:hover {
     background-color: var(--light-blue); 
 }
 
+textarea {
+    display: flex;
+    padding: 10px 20px;
+    background-color: var(--light);
+    color: black;
+    border: 2px solid transparent;
+    border-radius: var(--border-radius);
+    cursor: text;
+    margin-top: 10px;
+    transition: 0.3s;
+    font-size: medium;
+    font-weight: 200;
+    box-sizing: border-box;
+    width: 100%;
+    height: 300px;
+    resize: none;
+}
+
+textarea:focus {
+    border-color: var(--blue);
+    outline: none;
+}
+
+textarea:hover {
+    background-color: var(--light-blue);
+}
+
 .custom-checkbox {
     display: flex; 
     align-items: center; 
@@ -430,6 +459,34 @@ input:hover {
 .panel.hide {
     opacity: 0; 
     transform: translateY(-10px); 
+}
+
+.textarea-panel {
+    display: none; 
+    top: 100%; 
+    left: 0;
+    width: 100%;
+    margin-top: 10px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.textarea-panel.show {
+    display: block; 
+    opacity: 1; 
+    transform: translateY(0); 
+}
+
+.textarea-panel.hide {
+    opacity: 0; 
+    transform: translateY(-10px); 
+}
+
+#autoExceptionsButton {
+    width: 100%;
 }
 
 #exceptionsList {

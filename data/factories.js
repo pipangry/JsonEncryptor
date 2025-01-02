@@ -1,0 +1,25 @@
+const factories = [
+    "equipment_tab_factory",
+    "item_text_factory",
+    "import_message_factory",
+    "trade_details_factory",
+    "share_popup_dialog_factory",
+    "construction_tab_factory",
+    "save_message_factory",
+    "item_lock_notification_factory",
+    "credits_factory",
+    "selected_item_details_factory",
+    "discovery_dialog_factory",
+    "edu_cloud_conflict_resolution_popup_dialog_factory",
+    "items_tab_factory",
+    "character_selector_dialog_factory",
+    "error_dialog_factory",
+    "hud_tip_text_factory",
+    "popup_factory",
+    "nature_tab_factory",
+    "custom_skin_dialog_factory",
+    "server_form_factory",
+    "import_failed_message_factory",
+    "popup_dialog_factory"
+];
+export default factories;

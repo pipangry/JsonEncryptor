@@ -1,4 +1,4 @@
-const hardcoredValues =[
+const hardcoredValues = [
     "button.menu_auto_place",
     "button.structure_load",
     "#textbox.buttonName",

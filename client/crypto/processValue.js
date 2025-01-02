@@ -8,7 +8,7 @@ export default function processValue(value, skipDot) {
     if (Array.isArray(value)) {
         return value.map(item => processValue(item));
     } else if (typeof value === 'object' && value !== null) {
-        return encryptJsonKeys(value);
+        return encryptJsonKeys(value, true);
     } else if (typeof value === 'string') {
         if (value.includes('$')) {
             value = value.replace(/\$([a-zA-Z_][a-zA-Z0-9_]*)/g, (match, p1) => {

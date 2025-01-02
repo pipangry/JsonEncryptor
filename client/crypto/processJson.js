@@ -3,22 +3,26 @@ import commonExceptions from "../../data/common_exceptions.js";
 import cryptoMD5 from "./md5.js";
 import processValue from './processValue.js'
 import syntax from "../../data/syntax.js";
+import factories from "../../data/factories.js"
 
-export default function encryptJsonKeys(obj) {
+export default function encryptJsonKeys(obj, isValue = false) {
     const encryptedObj = Array.isArray(obj) ? [] : {};
     const namespace = obj.namespace || null;
     const exceptions = namespace && commonExceptions[namespace] ? commonExceptions[namespace] : [];
 
+    const topLevelKeys = Object.keys(obj).filter(key => typeof obj[key] === 'object' && obj[key] !== null);
+
     for (const key in obj) {
         if (obj.hasOwnProperty(key)) {
+            const isTopLevelKey = topLevelKeys.includes(key) && !isValue;
             const parts = key.split("|");
             const keyWithoutDefault = parts.filter(part => part !== "default").join("|");
-            const shouldEncrypt = !mergeExceptions(syntax, 1).includes(keyWithoutDefault);
+            const shouldEncrypt = syntax.includes(key) && !isTopLevelKey || factories.includes(key) || mergeExceptions([], 1).includes(keyWithoutDefault) ? false : true;
 
             let encryptedKey = "";
             let isFirstPart = true;
 
-            if (key === 'control_ids' || key === 'property_bag') {
+            if (key === 'control_ids' || key === 'property_bag' || key === 'factory') {
                 encryptedObj[key] = {};
                 for (const controlKey in obj[key]) {
                     if (obj[key].hasOwnProperty(controlKey)) {
@@ -30,7 +34,7 @@ export default function encryptJsonKeys(obj) {
 
             let skipDot = false;
 
-            if(key === 'text') {
+            if (key === 'text') {
                 skipDot = true;
             }
 
@@ -45,10 +49,8 @@ export default function encryptJsonKeys(obj) {
                     partAfterAt = part.slice(atIndex);
                 }
 
-                const isTopLevelKey = Object.keys(obj).indexOf(key) === 0;
-
                 if (shouldEncrypt) {
-                    encryptedKey += (mergeExceptions(exceptions, 2).includes(partBeforeAt) ? partBeforeAt : cryptoMD5(partBeforeAt)) + processAnnotation(partAfterAt) + (i < parts.length - 1 ? "|" : "");
+                    encryptedKey += (mergeExceptions(exceptions, 2).includes(partBeforeAt) && isTopLevelKey ? partBeforeAt : cryptoMD5(partBeforeAt)) + processAnnotation(partAfterAt) + (i < parts.length - 1 ? "|" : "");
                 } else {
                     encryptedKey += part + (i < parts.length - 1 ? "|" : "");
                 }

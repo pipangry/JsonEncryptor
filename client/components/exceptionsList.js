@@ -3,6 +3,7 @@ import log from "../fileProcessing/utils/log.js";
 
 const STORAGE_KEY = 'ExceptionsList';
 
+const autoExceptionsTypeDropdown = document.getElementById('autoExceptionsTypeDropdown');
 const exceptionNameInput = document.getElementById('exceptionName');
 const typeDropdown = document.getElementById('typeDropdown');
 const addExceptionButton = document.getElementById('addExceptionButton');
@@ -15,9 +16,12 @@ const availableTypes = [
     { name: 'Namespace', value: 4 }
 ];
 
-function createDropdown(dropdownElement, selectedValue) {
+export function createDropdown(dropdownElement, selectedValue, optionTypes) {
     dropdownElement.innerHTML = '';
-    availableTypes.forEach(type => {
+    if (!optionTypes) {
+        optionTypes = availableTypes;
+    }
+    optionTypes.forEach(type => {
         const option = document.createElement('option');
         option.value = type.value;
         option.textContent = type.name;
@@ -36,9 +40,9 @@ function saveExceptions(exceptions) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(exceptions));
 }
 
-function addException() {
-    const exceptionName = exceptionNameInput.value.trim();
-    const exceptionType = parseInt(typeDropdown.value);
+export function addException(newException) {
+    const exceptionName = newException ? newException : exceptionNameInput.value.trim();
+    const exceptionType = newException ? parseInt(autoExceptionsTypeDropdown.value) : parseInt(typeDropdown.value);
     if (exceptionName) {
         const exceptions = getExceptions();
         
