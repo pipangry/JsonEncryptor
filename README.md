@@ -12,6 +12,7 @@ Here you can read about:
 * How your syntax will encrypt
 * Obfuscation settings
 * Exceptions manager
+* Auto exceptions adder
 
 ## What does this obfuscator do?
 You can upload a file in the following format to this obfuscator .zip or .json.
@@ -48,7 +49,7 @@ Example:
       }
     ]
 ```
-Here you need to add server_form_factory to the exceptions, as it is a hardcored factory. More about exceptions you can read in another topic. Of course, a large database of exceptions has already been provided for syntax encryption, and you can view the list of exceptions in the source code in the data folder.
+Of course, a large database of exceptions has already been provided for syntax encryption, and you can view the list of exceptions in the source code in the data folder. For example, here, server_form_factory is a hardcored factory, so it won't be encrypted automatically.
 
 A brief description of the encryption logic for a better understanding:
 > First, the names of the Json keys themselves are encrypted, and an array of syntax exceptions is used for them, which implies the complete identity of the entire key. Next, the key is divided into 2 parts, if it contains the @ character, and the annotation is processed (that is, the line after the @). The string after the @ is divided by a dot, this is done so that we can determine where the namespace and the Json key index are.
@@ -150,6 +151,19 @@ Exceptions of this type will be applied to all namespace values. The namespace v
 "test@my_namespace.test": {}
 ```
 Here, the namespace values will be considered my_namespace, to which we can add an exception.
+
+## Auto exceptions adder
+Auto exceptions adder is a thing that allows you to quickly add Global or Index type exceptions by simply inserting your Json code into the input field. You just need to paste your Json element into the field, you don't have to follow the rules for setting Json, because your Json will be corrected automatically so that you can copy the code easily and quickly.
+
+Auto exceptions adder is designed for such cases, when, for example, you use dependencies from minecraft samples (For example, ```common.button```). Using the example of an element using ```common.button```, we will assume that you have the key ```$pressed_button_name``` and ```controls```, where you specify ```default```, ```hover``` and ```pressed```. Here you simply insert your element and, depending on the type you choose, exceptions are automatically added.
+
+**Types:**
+
+Global. All keys that start with the ```$``` symbol (i.e. the variables) are added. Recursive traversal of elements is used.
+
+Index. All indexes of the keys located in the controls key are added to the exceptions. A recursive traversal is used, but the child elements of already processed keys are not taken into account in controls.
+
+In the previous example with ```common.button```, when using the Global type, we will add ```$pressed_button_name```, and when using the Index type, ```default```, ```hover```, ```pressed``` will be added.
 
 # Have any questions?
 Post a new issue.
