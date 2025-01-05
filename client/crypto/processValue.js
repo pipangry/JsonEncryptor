@@ -4,11 +4,11 @@ import encryptJsonKeys from './processJson.js'
 import hardcodedValues from "../../data/hardcored_values.js";
 import globalVariables from "../../data/global_variables.js";
 
-export default function processValue(value, skipDot) {
+export default function processValue(value, skipDot, factoryBuffer = false) {
     if (Array.isArray(value)) {
         return value.map(item => processValue(item));
     } else if (typeof value === 'object' && value !== null) {
-        return encryptJsonKeys(value, true);
+        return encryptJsonKeys(value, true, factoryBuffer);
     } else if (typeof value === 'string') {
         if (value.includes('$')) {
             value = value.replace(/\$([a-zA-Z_][a-zA-Z0-9_]*)/g, (match, p1) => {
@@ -23,6 +23,18 @@ export default function processValue(value, skipDot) {
         const isAnnotated = mergeExceptions(annotations, 3).includes(value.replace(/^@/, ''));
 
         if (value.includes('.')) {
+            let partBeforeAt = "";
+            let partAfterAt = value;
+
+            const atIndex = value.indexOf('@');
+            if (atIndex !== -1) {
+                partBeforeAt = value.slice(0, atIndex);
+                partAfterAt = value.slice(atIndex);
+            }
+            return value = cryptoMD5(partBeforeAt) + processAnnotation(partAfterAt);
+        }
+
+        function processAnnotation(value) {
             const index = value.indexOf('.');
             const beforeDot = value.slice(0, index);
             const afterDot = value.slice(index);

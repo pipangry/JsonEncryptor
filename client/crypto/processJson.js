@@ -5,7 +5,7 @@ import processValue from './processValue.js'
 import syntax from "../../data/syntax.js";
 import factories from "../../data/factories.js"
 
-export default function encryptJsonKeys(obj, isValue = false) {
+export default function encryptJsonKeys(obj, isValue = false, isFactoryBase = false) {
     const encryptedObj = Array.isArray(obj) ? [] : {};
     const namespace = obj.namespace || null;
     const exceptions = namespace && commonExceptions[namespace] ? commonExceptions[namespace] : [];
@@ -22,17 +22,12 @@ export default function encryptJsonKeys(obj, isValue = false) {
             let encryptedKey = "";
             let isFirstPart = true;
 
-            if (key === 'control_ids' || key === 'property_bag' || key === 'factory') {
-                encryptedObj[key] = {};
-                for (const controlKey in obj[key]) {
-                    if (obj[key].hasOwnProperty(controlKey)) {
-                        encryptedObj[key][controlKey] = processValue(obj[key][controlKey]);
-                    }
-                }
-                continue;
-            }
-
             let skipDot = false;
+            let enableFactoryBase = false;
+
+            if (key === 'control_ids' || key === 'property_bag' || key === 'factory') {
+                enableFactoryBase = true;
+            }
 
             if (key === 'text') {
                 skipDot = true;
@@ -49,7 +44,7 @@ export default function encryptJsonKeys(obj, isValue = false) {
                     partAfterAt = part.slice(atIndex);
                 }
 
-                if (shouldEncrypt) {
+                if (shouldEncrypt && !isFactoryBase) {
                     encryptedKey += (mergeExceptions(exceptions, 2).includes(partBeforeAt) && isTopLevelKey ? partBeforeAt : cryptoMD5(partBeforeAt)) + processAnnotation(partAfterAt) + (i < parts.length - 1 ? "|" : "");
                 } else {
                     encryptedKey += part + (i < parts.length - 1 ? "|" : "");
@@ -80,7 +75,7 @@ export default function encryptJsonKeys(obj, isValue = false) {
                     encryptedObj[encryptedKey] = obj[key];
                 }
             } else {
-                encryptedObj[encryptedKey] = processValue(obj[key], skipDot);
+                encryptedObj[encryptedKey] = processValue(obj[key], skipDot, enableFactoryBase);
             }
         }
     }
