@@ -44,6 +44,7 @@ export default function encryptJsonKeys(obj, isValue = false, isFactoryBase = fa
                 const atIndex = part.indexOf('@');
                 if (atIndex !== -1) {
                     partBeforeAt = part.slice(0, atIndex);
+                    partAfterAt = part.slice(atIndex);
                 }
 
                 if (shouldEncrypt && !isFactoryBase) {
