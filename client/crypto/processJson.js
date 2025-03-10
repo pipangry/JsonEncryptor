@@ -16,7 +16,10 @@ export default function encryptJsonKeys(obj, isValue = false, isFactoryBase = fa
         if (obj.hasOwnProperty(key)) {
             const isTopLevelKey = topLevelKeys.includes(key) && !isValue;
             const parts = key.split("|");
-            const keyWithoutDefault = parts.filter(part => part !== "default").join("|");
+            const hasDefault = parts.includes("default");
+            const filteredParts = parts.filter(part => part !== "default");
+            const keyWithoutDefault = filteredParts.join("|");
+
             const shouldEncrypt = syntax.includes(key) && !isTopLevelKey || factories.includes(key) || mergeExceptions([], 1).includes(keyWithoutDefault) ? false : true;
 
             let encryptedKey = "";
@@ -33,26 +36,29 @@ export default function encryptJsonKeys(obj, isValue = false, isFactoryBase = fa
                 skipDot = true;
             }
 
-            for (let i = 0; i < parts.length; i++) {
-                const part = parts[i];
+            for (let i = 0; i < filteredParts.length; i++) {
+                const part = filteredParts[i];
                 let partBeforeAt = part;
                 let partAfterAt = "";
 
                 const atIndex = part.indexOf('@');
                 if (atIndex !== -1) {
                     partBeforeAt = part.slice(0, atIndex);
-                    partAfterAt = part.slice(atIndex);
                 }
 
                 if (shouldEncrypt && !isFactoryBase) {
-                    encryptedKey += (mergeExceptions(exceptions, 2).includes(partBeforeAt) && isTopLevelKey ? partBeforeAt : cryptoMD5(partBeforeAt)) + processAnnotation(partAfterAt) + (i < parts.length - 1 ? "|" : "");
+                    encryptedKey += (mergeExceptions(exceptions, 2).includes(partBeforeAt) && isTopLevelKey ? partBeforeAt : cryptoMD5(partBeforeAt)) + processAnnotation(partAfterAt) + (i < filteredParts.length - 1 ? "|" : "");
                 } else {
-                    encryptedKey += part + (i < parts.length - 1 ? "|" : "");
+                    encryptedKey += part + (i < filteredParts.length - 1 ? "|" : "");
                 }
 
                 if (isTopLevelKey && isFirstPart) {
                     isFirstPart = false;
                 }
+            }
+
+            if (hasDefault) {
+                encryptedKey += encryptedKey ? "|default" : "default";
             }
 
             function processAnnotation(string) {
